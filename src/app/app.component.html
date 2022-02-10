@@ -1,0 +1,156 @@
+<header>
+<div class="logo">
+  <img class="logoimg" [src]="'assets/img/logo.png'" alt="Logo">
+
+  <div class="logoname" >
+    <h4>Test</h4>
+    <h5>Capital</h5>
+  </div>
+</div>
+</header>
+
+<div *ngIf="isShown" >
+
+<div class="title">
+  <h1>Token</h1>
+  <h6>Create your own crypto token</h6>
+</div>
+
+<main>
+  <div class="container">
+    <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-control">
+        <label>Company</label>
+        <select formControlName="Company">
+          <option value="My company">My company</option>
+          <option value="Big brother company">Big brother company</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label>Token name</label>
+        <input type="text" placeholder="My Token" formControlName="TokenName">
+        <div *ngIf="form.get('TokenName').invalid &&form.get('TokenName').touched" class="validation">
+      <small *ngIf="form.get('TokenName').errors.required">
+        This field can't be empty.
+      </small>
+      <small *ngIf="form.get('TokenName').errors.minlength">
+        This field should consist more than {{form.get('TokenName').errors.minlength.requiredLength}} symbols
+      </small>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Symbol</label>
+        <input type="text" placeholder="MTKN" formControlName="Symbol" oninput="this.value = this.value.toUpperCase()">
+        <div
+          *ngIf="form.get('Symbol').invalid && form.get('Symbol').touched"
+          class="validation">
+          <small *ngIf="form.get('Symbol').errors.required">
+            This field can't be empty.
+          </small>
+          <small *ngIf="form.get('Symbol').errors.minlength">
+            This field should consist more than {{form.get('Symbol').errors.minlength.requiredLength}} symbols
+          </small>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Maximum token supply</label>
+        <input type="number" placeholder="100 000 000" formControlName="MaximumTokenSupply">
+        <div *ngIf="form.get('MaximumTokenSupply').invalid && form.get('MaximumTokenSupply').touched"
+          class="validation">
+        <small *ngIf ="form.get('MaximumTokenSupply').errors.required">
+          This field can't be empty.
+        </small>
+        <small *ngIf ="form.get('MaximumTokenSupply').errors.min">
+          You should type number more than {{form.get('MaximumTokenSupply').errors.min.min}}, your number is {{form.get('MaximumTokenSupply').errors.min.actual}}
+        </small>
+        <small *ngIf ="form.get('MaximumTokenSupply').errors.max" >
+          You should type number less than {{form.get('MaximumTokenSupply').errors.max.max}}, your number is {{form.get('MaximumTokenSupply').errors.max.actual}}
+        </small>
+        </div>
+      </div>
+      <label>Blockchain</label>
+      <div>
+        <div *ngIf="flag" class="blockchain">
+          <div class="form-control">
+            <input  type="button"  (click)="btnClick()" value="Enthereum" class="btnred" >
+          </div>
+          <div class="form-control" >
+            <input  type="button"  (click)="btnClick1()" value="Binance Smart Chain" class="btngrey" >
+          </div>
+        </div>
+        <div *ngIf="!flag" class="blockchain1">
+        <div class="form-control">
+          <input  type="button"  (click)="btnClick()" value="Enthereum" class="btngrey" >
+        </div>
+        <div class="form-control" >
+          <input  type="button"  (click)="btnClick()" value="Binance Smart Chain" class="btnred" >
+        </div>
+      </div>
+      </div>
+
+
+      <div class="form-control">
+        <label>Suply</label>
+        <div class="checkbox">
+          <div class="check">
+            <input type="checkbox" id="Supply" name="Supply" value="Supply" formControlName="Supply" class="CustomCheckBox">
+          </div>
+          <small *ngIf="form.get('Supply').value">
+             Enabled
+          </small>
+          <small *ngIf="!form.get('Supply').value">
+            Disabled
+          </small>
+      </div>
+      </div>
+
+      <button class="btn" type="submit" [disabled]="form.invalid">SAVE DRAFT</button>
+
+    </form>
+  </div>
+</main>
+</div>
+<div *ngIf="!isShown" >
+  <div class="title">
+    <h1>Token</h1>
+    <h6>That is Your Token page</h6>
+  </div>
+
+  <main>
+    <div class="container2">
+      <ul>
+        <li>Company:  {{form.get('Company').value}}</li>
+
+        <li >Token name:  {{form.get('TokenName').value}}</li>
+        <li>Symbol:  {{form.get('Symbol').value}}</li>
+        <li>Maximum token supply:  {{form.get('MaximumTokenSupply').value}}</li>
+        <li *ngIf="BNB">Blockchain: Binance Smart Chain</li>
+        <li *ngIf="ETH">Blockchain: Enthereum</li>
+        <li>Supply:  {{form.get('Supply').value}}</li>
+      </ul>
+    </div>
+  </main>
+
+</div>
+<footer>
+  <div class="foot">
+
+  <div class="rights">
+    © 2021 All rights reserved.
+  </div>
+
+  <div class="TPF">
+    <a href="">terms</a>
+    <a href="">Privacy</a>
+    <a href="">FAQ</a>
+  </div>
+
+  <div class="contact">
+    Contact us: ask@test.capital
+  </div>
+
+  </div>
+</footer>
